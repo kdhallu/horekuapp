@@ -1,0 +1,26 @@
+{
+  "name": "horekuapp",
+  "version": "1.0.0",
+  "description": "This is dummy app for api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdhallu/horekuapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kdhallu/horekuapp/issues"
+  },
+  "homepage": "https://github.com/kdhallu/horekuapp#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "engines": {
+    "node": "10.9.0"
+  }
+}
