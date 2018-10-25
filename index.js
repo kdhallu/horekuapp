@@ -34,5 +34,9 @@ var server = app.listen(process.env.PORT || 8080, function () {
 });
 
 app.get("/", function(req, res) {
-    res.json({status:"true", message:"api accessible"});
+    res.json({
+  "textToSpeech": 'This is response from webserver',
+  "ssml": "ssm i dont know",
+  "displayText": "this is display text"
+});
 });
