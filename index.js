@@ -33,7 +33,11 @@ var server = app.listen(process.env.PORT || 8080, function () {
     console.log("Listening on port %s...", server.address().port);
 });
 
-app.get("/", function(req, res) {
+app.get("/", function(req, res){
+	res.json({status:"true", message:"server running"})
+})
+
+app.post("/fulfillment", function(req, res) {
     res.json({
   "textToSpeech": 'This is response from webserver',
   "ssml": "ssm i dont know",
