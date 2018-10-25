@@ -16,8 +16,7 @@ app.get("/", function(req, res){
 })
 
 app.post("/fullfilment", function(req, res) {
-	console.log('fullfilment called');
-	res.json({{
+	res.json({
 	  "textToSpeech": "this is text to speech",
 	  "ssml": "this is ssml",
 	  "displayText": "this is display text"
