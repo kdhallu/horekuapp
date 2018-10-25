@@ -18,7 +18,8 @@ app.get("/", function(req, res){
 })
 
 app.post("/fullfilment", function(req, res) {
-	res.json("fulfillmentText": "This is a text response",
+	res.json({
+"fulfillmentText": "This is a text response",
 "fulfillmentMessages": [
   {
     "card": {
