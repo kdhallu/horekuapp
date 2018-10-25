@@ -34,6 +34,7 @@ var server = app.listen(process.env.PORT || 8080, function () {
 });
 
 app.get("/", function(req, res){
+	console.log('api called')
 	res.json({status:"true", message:"server running"})
 })
 
