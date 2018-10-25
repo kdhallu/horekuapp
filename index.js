@@ -15,7 +15,11 @@ app.get("/", function(req, res){
 	res.json({status:"true", message:"server running"})
 })
 
-app.post("/fulfillment", function(req, res) {
+app.post("/fullfilment", function(req, res) {
 	console.log('fullfilment called');
-    res.json({status:"true", message:"server running"});
+	res.json({{
+	  "textToSpeech": "this is text to speech",
+	  "ssml": "this is ssml",
+	  "displayText": "this is display text"
+	});
 });
