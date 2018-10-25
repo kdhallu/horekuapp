@@ -5,7 +5,7 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cors());
 
 var server = app.listen(process.env.PORT || 8080, function () {
     console.log("Listening on port %s...", server.address().port);
@@ -17,9 +17,5 @@ app.get("/", function(req, res){
 })
 
 app.post("/fulfillment", function(req, res) {
-    res.json({
-	  "textToSpeech": 'This is response from webserver',
-	  "ssml": "ssm i dont know",
-	  "displayText": "this is display text"
-	});
+    res.json({status:"true", message:"server running"});
 });
