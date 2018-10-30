@@ -1,0 +1,328 @@
+<!doctype html>
+
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+		  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		  crossorigin="anonymous"></script>
+  
+		<script>
+			var audio = new Audio();
+ 
+			function say (query, language) {
+			  console.log(audio + "  say in " + language + ": " + query);
+			  var url = 'https://translate.google.com/translate_tts?ie=utf-8&tl=' + language + '&q=' + encodeURIComponent(query);
+			  
+			  console.log("SpeechURL: " + url);
+			  
+			  if (url.length > 130 )
+			  {
+				console.log( "Warning! The length of the url is greater than 130");
+				url = url.substr(0, 130);
+				console.log("SpeechURL (Shortened): " + url);
+			  }
+
+			  audio.src = url;
+			  audio.play();  
+			}
+			  
+			function sayInput()
+			{
+				var content = $('textarea.intput').val();
+				if ( content == undefined || content == "") content = "nothing to say";
+			  
+				say(content, 'en'); 
+			}
+
+			var webSpeech = function() {
+			  var recognition = new webkitSpeechRecognition();
+			  var pixelAmount = 500;
+			  var commands = {
+				//'scroll down': animator.scrollDown,
+				//'scroll up': animator.scrollUp
+			  };
+
+			  function voiceStart(event) { 
+				$('h1.input').html("Speech Input: Listening (" + count + ")");
+				$('h1.input').toggleClass("recording", true);
+				//document.getElementById('constructor').style.display = 'block';
+			  }
+			  
+			 
+			  function voiceEnd(event) {
+				var html = "<a href='#'>Speech Input</a>"; 
+				var jHtml = $(html).click(function(event){
+				  event.preventDefault();
+				  sayInput(); 
+				}); 
+				 
+				$('h1.input').html(jHtml);
+					
+				count = 0;
+				$('h1.input').toggleClass("recording", false);
+					
+				//document.getElementById('constructor').style.display = 'none';
+			  }
+			  
+			  var count = 0;
+			  function detect(event) {
+				count++;
+
+				
+				
+				console.log("listening ... " + count );
+				//console.log(event);
+				
+				for (var i = event.resultIndex; i < event.results.length; i++) {
+				  if (event.results[i].isFinal) {
+					
+					var command = event.results[i][0].transcript.replace(/^\s+|\s+$/g, '');
+					
+					console.log(command);
+					
+					if ( command == "clear" ) {
+					  
+					  // clear the text
+					  $('textarea.intput').val("");
+					}
+					else if ( command == "say it" ) {
+					  sayInput();
+					}
+					else 
+					{
+					  // add text
+					  $('textarea.intput').val($('textarea.intput').val() + command);
+					}
+					
+					// void command ended
+					voiceEnd(event);
+					/*
+					if (command.match(/scroll to [0-9]+ percent/g) != null) {
+					  animator.scrollToPercent(command.split(' ')[2]);
+					}
+					else if(commands[command] != undefined) {
+					  commands[command](pixelAmount);
+					}
+					*/
+				  } else {
+					voiceStart();
+				  }
+				}
+			  }
+
+			  return {
+				listen: function() {
+				  recognition.continuous = true;
+				  recognition.interimResults = true;
+				  recognition.lang = "en-UK";
+				  recognition.onresult = detect;
+				  recognition.start();
+				}
+			  };
+			}();
+			 
+			$('input.send').click(function(event) {
+			  var content = $('textarea.output').val();
+			  if ( content == undefined || content == "") {
+				content = "Type something into the out put box, then click 'say it'";
+			  }
+			  //console.log(content);
+			  say(content, 'en'); 
+			});
+
+
+			webSpeech.listen();
+
+			var html = "<a href='#'>Speech Input</a>"; 
+			var jHtml = $(html).click(function(event){
+				event.preventDefault();
+				sayInput(); 
+			}); 
+			$('h1.input').html(jHtml);
+		</script>
+		
+		
+		<style>
+			a,
+				a:hover {
+				  color: #fff;
+				  text-decoration: none;
+				}
+				a:hover {
+				  color: #808080;
+				}
+				body {
+				  font: 14px sans-serif;
+				  background: #e1e1e1;
+				}
+				.contact {
+				  width: 400px;
+				  position: absolute;
+				  top: 50%;
+				  left: 50%;
+				  margin: -160px 0px 0px -200px;
+				  background: #fff;
+				  animation-name: bounce;
+				  animation-fill-mode: both;
+				  animation-duration: 1s;
+				}
+				h1 {
+				  background: #313233;
+				  color: #fff;
+				  padding-left: 15px;
+				  line-height: 50px;
+				}
+				.filename,
+				.ext {
+				  box-sizing: border-box;
+				  float: left;
+				  width: 50%;
+				  margin: 0;
+				  padding: 0 0 0 15px;
+				  height: 50px;
+				  border: 0;
+				  border-bottom: 1px solid rgba(0,0,0,0.1);
+				  border-top: 1px solid rgba(0,0,0,0.1);
+				}
+				.ext {
+				  border-left: 1px solid rgba(0,0,0,0.1);
+				}
+				textarea {
+				  font: 12px sans-serif;
+				  box-sizing: border-box;
+				  height: 100px;
+				  max-height: 260px;
+				  min-width: 400px;
+				  max-width: 400px;
+				  margin: 0 auto;
+				  border: 0;
+				  padding: 15px;
+				  line-height: 18px;
+				}
+				.recording {
+				  background: #f00;
+				}
+				.send {
+				  background: #1b8600;
+				  border: 0px;
+				  padding: 0px;
+				  margin: 0 auto;
+				  height: 50px;
+				  line-height: 50px;
+				  text-align: center;
+				  width: 100%;
+				  cursor: pointer;
+				  color: #fff;
+				  transition: background 0.3s linear;
+				}
+				.send:hover {
+				  background: #2ee200;
+				}
+				.send:focus {
+				  outline: none;
+				}
+				p {
+				  color: rgba(50,50,50,0.6);
+				  padding: 10px;
+				  text-decoration: none;
+				}
+				p:hover {
+				  color: rgba(50,50,50,0.4);
+				}
+				p a {
+				  font-weight: bold;
+				  color: rgba(50,50,50,0.6);
+				}
+				.url {
+				  display: none;
+				}
+				input[type="text"]:focus,
+				input[type="email"]:focus,
+				textarea:focus {
+				  outline: none;
+				  background: rgba(137,137,137,0.3);
+				  color: #313233;
+				}
+				@-moz-keyframes bounce {
+				  0% {
+					opacity: 0;
+					transform: translateY(-2000px);
+				  }
+				  60% {
+					opacity: 1;
+					transform: translateY(30px);
+				  }
+				  80% {
+					transform: translateY(-10px);
+				  }
+				  100% {
+					transform: translateY(0);
+				  }
+				}
+				@-webkit-keyframes bounce {
+				  0% {
+					opacity: 0;
+					transform: translateY(-2000px);
+				  }
+				  60% {
+					opacity: 1;
+					transform: translateY(30px);
+				  }
+				  80% {
+					transform: translateY(-10px);
+				  }
+				  100% {
+					transform: translateY(0);
+				  }
+				}
+				@-o-keyframes bounce {
+				  0% {
+					opacity: 0;
+					transform: translateY(-2000px);
+				  }
+				  60% {
+					opacity: 1;
+					transform: translateY(30px);
+				  }
+				  80% {
+					transform: translateY(-10px);
+				  }
+				  100% {
+					transform: translateY(0);
+				  }
+				}
+				@keyframes bounce {
+				  0% {
+					opacity: 0;
+					transform: translateY(-2000px);
+				  }
+				  60% {
+					opacity: 1;
+					transform: translateY(30px);
+				  }
+				  80% {
+					transform: translateY(-10px);
+				  }
+				  100% {
+					transform: translateY(0);
+				  }
+				}
+
+		</style>
+	</head>
+	
+	<body>
+	
+		<div class='contact'>
+		  <h1 class='input'>Speech Input</h1>
+		  <textarea class='intput' placeholder='Start Talking'></textarea>
+		  <h1>Output</h1>
+		  <textarea class='output' placeholder='Type, then hit speak'></textarea>
+		  <input class='send' type='submit' value='Say it'>
+		  <p class='url'></p>
+		</div>
+
+	
+	</body>
+</html>
+

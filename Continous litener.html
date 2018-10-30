@@ -1,0 +1,60 @@
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  
+  <script>
+
+	var recognition = new webkitSpeechRecognition();
+	recognition.continuous = true;
+	recognition.interimResults = true;
+	recognition.lang = "en-UK";
+	recognition.onresult = detect;
+	recognition.start();
+				  
+	var accessToken ="7f003fafaed34d4fb6f09b335bec1822";
+	var baseUrl = "https://api.dialogflow.com/v1/";
+	
+	
+	function detect(event){
+		
+		
+		for (var i = event.resultIndex; i < event.results.length; i++) {
+		  if (event.results[i].isFinal) {
+				var command = event.results[i][0].transcript.replace(/^\s+|\s+$/g, '');
+				
+				console.log(command);
+				
+				$.ajax({
+					type: "POST",
+					url: baseUrl + "query?v=20150910",
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					headers: {
+						"Authorization": "Bearer " + accessToken
+					},
+					data: JSON.stringify({ query: command, lang: "en", sessionId: "SOMETHINGRANDOM" }),
+					success: function(data) {
+						var respText = data.result.fulfillment.speech;
+						setResponse(respText);
+					},
+					error: function() {
+						setResponse("Internal Server Error");
+					}
+				});
+			
+				
+			}
+		}		
+	}
+
+	function setResponse(text){
+		var msg = new SpeechSynthesisUtterance(text);
+		window.speechSynthesis.speak(msg);
+		$("#response-content").html('<p>' + text + '</p>')
+	}
+	
+	
+</script>
+
+<div id="response-content"></div>
