@@ -19,7 +19,9 @@
   "dependencies": {
     "actions-on-google": "^2.4.1",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+	"follow-redirects": "^1.5.9",
+	"request": "^2.88.0"
   },
   "engines": {
     "node": "10.9.0"
