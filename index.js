@@ -21,6 +21,10 @@ app.get("/", function(req, res){
 
 app.post("/fullfilment", function(req, res) {
 	
+	
+	
+	
+	
 	let options = {
 		host: 'testing.optymyze.com',
 		path: '/optFarmIS08/services/jobs/Jobs1.User/trigger',
@@ -37,6 +41,23 @@ app.post("/fullfilment", function(req, res) {
 		console.log('Headers: ' + JSON.stringify(httpResponse.headers));
 		httpResponse.setEncoding('utf8');
 		httpResponse.on('data', function (body) {
+			console.log('response from server' + body)
+			
+			let responseObj={
+				 "fulfillmentText": body
+				,"fulfillmentMessages":[
+					{
+						"text": {
+							"text": [
+								"Hello I m Responding to intent"
+							]
+						}
+					}
+				]
+				,"source":""
+			}
+	
+	
 			res.json(body);
 		});
 	});
