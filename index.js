@@ -27,7 +27,7 @@ app.post("/fullfilment", function(req, res) {
 	
 	let options = {
 		host: 'testing.optymyze.com',
-		path: '/optFarmIS08/services/jobs/Jobs1.User/trigger',
+		path: '/optFarmIS08/services/jobs/credit.User/trigger',
 		headers: {
 			'Content-Type': 'application/json',
 			'Environment-id': '59218',
