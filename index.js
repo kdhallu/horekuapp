@@ -44,7 +44,7 @@ app.post("/fullfilment", function(req, res) {
 			console.log('response from server' + body)
 			
 			let responseObj={
-				 "fulfillmentText": body
+				 "fulfillmentText": body.message
 				,"fulfillmentMessages":[
 					{
 						"text": {
