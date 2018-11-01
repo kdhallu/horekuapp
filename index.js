@@ -41,11 +41,11 @@ app.post("/fullfilment", function(req, res) {
 		console.log('Headers: ' + JSON.stringify(httpResponse.headers));
 		httpResponse.setEncoding('utf8');
 		httpResponse.on('data', function (body) {
-			console.log('response from server' + body)
+			console.log('response from server' + JSON.parse(body).message)
 			
 			let responseObj={
-				 "fulfillmentText": body.message
-				,"fulfillmentMessages":[
+				 "fulfillmentText": JSON.parse(body).message,
+				 "fulfillmentMessages":[
 					{
 						"text": {
 							"text": [
