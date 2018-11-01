@@ -58,7 +58,7 @@ app.post("/fullfilment", function(req, res) {
 			}
 	
 	
-			res.json(body);
+			res.json(responseObj);
 		});
 	});
 
