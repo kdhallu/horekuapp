@@ -31,7 +31,7 @@ app.post("/fullfilment", function(req, res) {
 		headers: {
 			'Content-Type': 'application/json',
 			'Environment-id': '59218',
-			'Authorization': 'Bearer pzKomcWjVbcriVT8r1sryth6Jc9A3AJlURzOiWApTVqhOMAmC1dH4M44gTH5Mxr0'
+			'Authorization': 'Bearer F7NOI6zjbBP62eFBuNdo8aZtYKfgaTGvJe1wZJM3negSmBDB5geErOH1Kt5rn2tM'
 		},
 		method: 'POST'
 	};
