@@ -22,12 +22,12 @@ app.get("/", function(req, res){
 app.post("/fullfilment", function(req, res) {
 	
 	let options = {
-		host: 'testing.optymyze.com',
-		path: '/optFarmIS08/services/jobs/credit.User/trigger',
+		host: 'www.google.com',
+		path: '/trigger/',
 		headers: {
 			'Content-Type': 'application/json',
 			'Environment-id': '59218',
-			'Authorization': 'Bearer F7NOI6zjbBP62eFBuNdo8aZtYKfgaTGvJe1wZJM3negSmBDB5geErOH1Kt5rn2tM'
+			'Authorization': 'Bearer asdfasdfsad'
 		},
 		method: 'POST'
 	};
@@ -62,6 +62,6 @@ app.post("/fullfilment", function(req, res) {
 		console.log('problem with request: ' + e);
 	});
 	// write data to request body
-	req.write(JSON.stringify({email: "pol@optymyze.com", period: "2020-05-01"}));
+	req.write(JSON.stringify({email: "kdhallu", period: "2020-05-01"}));
 	req.end();
 });
